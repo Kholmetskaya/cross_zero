@@ -30,10 +30,12 @@ contentTd.forEach(e => e.addEventListener("click", createHTML));
 var player = false;
 var count = 0, countX = 0, countY=0, countN = 0;
 var perX = 0 ,  perY = 0 , perN = 0;
+var id = null;
 function getWinner(str){
 var sum = countX + countY + countN;
+    if(id) return;
     if (str === "XXX") {
-        setTimeout(function(){
+      id =  setTimeout(function(){
              if(confirm("win 'X'")){
                  if(localStorage.getItem("key")){
                     countX = +localStorage.getItem("key");
@@ -52,10 +54,10 @@ var sum = countX + countY + countN;
                  localStorage.clear();
                 //  document.location.reload(true);
              };
-            
+             id = null; 
         },1000)           
     } else if (str === "OOO") {
-        setTimeout(function(){
+       id =  setTimeout(function(){
            if( confirm("win 'O'")){
                
             if(localStorage.getItem("key")){
@@ -75,10 +77,10 @@ var sum = countX + countY + countN;
             localStorage.clear();
             // document.location.reload(true);
            }
-           
+           id = null;
         },1000)
     } else if(count == 9){
-        setTimeout(function(){
+      id =  setTimeout(function(){
             if(confirm("no winner")){
                 
                 if(localStorage.getItem("key")){
@@ -98,7 +100,8 @@ var sum = countX + countY + countN;
                 alert("Вы закончили игру");
                 localStorage.clear();
                 // document.location.reload(true);
-            }           
+            } 
+            id = null;          
         },1000)
     }
     document.querySelector(".rezult").innerHTML = `Sum : ${sum} Player X : ${perX}% Player Y : ${perY}% Draw : ${perN}%`
